@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+
+  user-service:
+    build: ./user-service
+    container_name: user-service
+    ports:
+      - "8081:8081"
+    environment:
+      - SPRING_DATA_MONGODB_URI=mongodb+srv://nisularap_db_user:WAdHCBAJ6keePwUM@users-db.k503xxn.mongodb.net/users-db
+    restart: always
+
+  book-service:
+    build: ./book-service
+    container_name: book-service
+    ports:
+      - "8082:8082"
+    environment:
+      - SPRING_DATA_MONGODB_URI=mongodb+srv://nisularap_db_user:Yrw7WEypYYIqe6pe@books-db.tmypzge.mongodb.net/books-db
+    depends_on:
+      - user-service
+    restart: always
